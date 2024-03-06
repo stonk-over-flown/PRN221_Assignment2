@@ -1,0 +1,9 @@
+﻿@page
+@model RazorStoreRe.Pages.LogOutModel
+@{
+}
+
+@{
+    HttpContext.Session.Clear();
+    Response.Redirect("/Index");
+}

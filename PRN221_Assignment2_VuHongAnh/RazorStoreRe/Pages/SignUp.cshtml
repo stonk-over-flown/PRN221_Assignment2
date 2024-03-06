@@ -1,0 +1,47 @@
+﻿@page
+@model RazorStoreRe.Pages.SignUpModel
+@{
+    ViewData["Title"] = "Sign Up";
+}
+
+@if (HttpContext.Session.GetInt32("role") != null)
+{
+    Response.Redirect("/Index");
+}
+
+<div class="text-center">
+    <h1 class="display-4">Sign Up</h1>
+    <form method="post" asp-page-handler="signup">
+        <table align="center">
+            <tr>
+                <td>Full name:</td>
+                <td>@Html.TextBox("fullname")</td>
+            <tr>
+                <td>Email:</td>
+                <td>@Html.TextBox("email")</td>
+                    @HttpContext.Session.GetString("emailerror")
+            </tr>
+            <tr>
+                <td>Password:</td>
+                <td>@Html.Password("password")</td>
+            </tr>
+            <tr>
+                <td>Confirm Password:</td>
+                <td>@Html.Password("confirmpassword")</td>
+                    @HttpContext.Session.GetString("passworderror")
+            </tr>
+            <tr>
+                <td>Phone:</td>
+                <td>@Html.TextBox("phonenumber")</td>
+            </tr>
+            <tr>
+                <td>Address:</td>
+                <td>@Html.TextBox("address")</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td><input type="submit" value="Signup" /></td>
+            </tr>
+        </table>
+    </form>
+</div>

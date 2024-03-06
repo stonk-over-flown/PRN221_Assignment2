@@ -1,0 +1,70 @@
+﻿@page
+@model RazorStoreRe.Pages.Product.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+    int count = 0;
+}
+
+@if (HttpContext.Session.GetInt32("role") == null)
+{
+    Response.Redirect("/Index");
+}
+
+<h1>Index</h1>
+
+
+@if (HttpContext.Session.GetInt32("role") == 1)
+{
+    <p>
+        <a asp-page="Create">Create New</a>
+    </p>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].CalculationUnit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].Category)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Product)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CalculationUnit)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.CategoryName[count])
+                </td>
+                @if (HttpContext.Session.GetInt32("role") == 1)
+                {
+                    <td>
+                        <a asp-page="./Edit" asp-route-id="@item.ProductId">Edit</a> |
+                        <a asp-page="./Details" asp-route-id="@item.ProductId">Details</a> |
+                        <a asp-page="./Delete" asp-route-id="@item.ProductId">Delete</a>
+                    </td>
+                }
+            </tr>
+            count++;
+        }
+    </tbody>
+</table>

@@ -1,0 +1,30 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    @if (HttpContext.Session.GetInt32("role") == null)
+    {
+        <h1 class="display-4">Welcome</h1>
+        <p>Please login/sign up</p>
+    }
+    else
+    {
+        switch (HttpContext.Session.GetInt32("role"))
+        {
+            case 1:
+                <h1 class="display-4">Welcome, @HttpContext.Session.GetString("fullname")</h1>
+                <p>Have a wonderful day!</p>
+                break;
+            case 2:
+                <h1 class="display-4">Welcome, @HttpContext.Session.GetString("fullname")</h1>
+                <p>Have a wonderful day!</p>
+                break;
+            case 3:
+                Response.Redirect("/Error");
+                break;
+        }
+    }
+</div>
